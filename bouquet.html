@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bloom Bouquet Shop</title>
+
+
+    <!-- =========================
+         REACT CDN
+    ========================== -->
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <!-- =========================
+         CSS
+    ========================== -->
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8fb;
+            color: #333;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 15px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #d63384;
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+
+        .nav-links a:hover {
+            color: #d63384;
+        }
+
+
+        .cart-button {
+            border: none;
+            background-color: #d63384;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        .cart-button:hover {
+            background-color: #b4236d;
+        }
+
+
+        /* =========================
+           HERO SECTION
+        ========================== */
+
+        .hero {
+            min-height: 550px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 60px 8%;
+
+            background-color: #ffe6f0;
+        }
+
+
+        .hero-content {
+            width: 50%;
+        }
+
+
+        .hero-content h1 {
+            font-size: 48px;
+            color: #c2185b;
+            margin-bottom: 20px;
+        }
+
+
+        .hero-content p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+
+        .shop-btn {
+            background-color: #d63384;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        .shop-btn:hover {
+            background-color: #ad1457;
+        }
+
+
+        .hero-image {
+            width: 45%;
+            text-align: center;
+        }
+
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+        }
+
+
+        /* =========================
+           COMMON SECTION
+        ========================== */
+
+        .section {
+            padding: 70px 8%;
+        }
+
+
+        .section-title {
+            text-align: center;
+            color: #c2185b;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+
+        .section-text {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 35px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ABOUT
+        ========================== */
+
+        .about {
+            background-color: white;
+        }
+
+
+        .about-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+
+        .about-image {
+            width: 45%;
+        }
+
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+
+        .about-content {
+            width: 55%;
+        }
+
+
+        .about-content h3 {
+            color: #d63384;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+
+        .about-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           SEARCH AND FILTER
+        ========================== */
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+
+        .search {
+            width: 280px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+        }
+
+
+        .filter {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            background-color: white;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           PRODUCT GRID
+        ========================== */
+
+        .products {
+            display: grid;
+
+            grid-template-columns:
+            repeat(4, 1fr);
+
+            gap: 25px;
+        }
+
+
+        .product-card {
+            background-color: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+            0 5px 15px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+
+        .product-card:hover {
+            transform: translateY(-7px);
+        }
+
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+
+        .product-details {
+            padding: 18px;
+        }
+
+
+        .product-details h3 {
+            color: #c2185b;
+            margin-bottom: 8px;
+        }
+
+
+        .product-details p {
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+
+        .add-cart {
+            width: 100%;
+            border: none;
+            padding: 11px;
+            background-color: #d63384;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+
+        .add-cart:hover {
+            background-color: #ad1457;
+        }
+
+
+        /* =========================
+           SERVICES
+        ========================== */
+
+        .services {
+            background-color: #fff0f6;
+        }
+
+
+        .service-container {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+        }
+
+
+        .service-card {
+            background-color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+
+        .service-card .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+
+        .service-card h3 {
+            color: #c2185b;
+            margin-bottom: 10px;
+        }
+
+
+        .service-card p {
+            line-height: 1.5;
+            color: #666;
+        }
+
+
+        /* =========================
+           CART SIDEBAR
+        ========================== */
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background-color: rgba(0,0,0,0.5);
+
+            z-index: 2000;
+        }
+
+
+        .cart-sidebar {
+            position: fixed;
+
+            top: 0;
+            right: 0;
+
+            width: 400px;
+            max-width: 90%;
+
+            height: 100%;
+
+            background-color: white;
+
+            z-index: 3000;
+
+            padding: 25px;
+
+            overflow-y: auto;
+        }
+
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .cart-header h2 {
+            color: #c2185b;
+        }
+
+
+        .close-cart {
+            border: none;
+            background: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+        }
+
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+
+        .cart-item-info h4 {
+            color: #c2185b;
+            margin-bottom: 5px;
+        }
+
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+
+        .quantity button {
+            border: none;
+            background-color: #f3d0df;
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+        }
+
+
+        .remove {
+            border: none;
+            background: none;
+            color: red;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+
+        .cart-total {
+            margin-top: 25px;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        .checkout {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 13px;
+
+            border: none;
+
+            background-color: #d63384;
+
+            color: white;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 10px;
+            color: #777;
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================== */
+
+        .contact {
+            background-color: white;
+        }
+
+
+        .contact-container {
+            display: flex;
+            gap: 40px;
+        }
+
+
+        .contact-info {
+            width: 40%;
+        }
+
+
+        .contact-info h3 {
+            color: #c2185b;
+            margin-bottom: 20px;
+        }
+
+
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+
+
+        .contact-form {
+            width: 60%;
+        }
+
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            outline: none;
+        }
+
+
+        .contact-form textarea {
+            height: 120px;
+            resize: none;
+        }
+
+
+        .submit-btn {
+            background-color: #d63384;
+            color: white;
+
+            border: none;
+
+            padding: 12px 25px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background-color: #c2185b;
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+        }
+
+
+        footer p {
+            margin: 5px;
+        }
+
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media(max-width:1000px) {
+
+            .products {
+                grid-template-columns:
+                repeat(2,1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+        }
+
+
+        @media(max-width:700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 30px;
+            }
+
+
+            .hero-content,
+            .hero-image {
+                width: 100%;
+            }
+
+
+            .about-container {
+                flex-direction: column;
+            }
+
+
+            .about-image,
+            .about-content {
+                width: 100%;
+            }
+
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+
+            .service-container {
+                grid-template-columns: 1fr;
+            }
+
+
+            .contact-container {
+                flex-direction: column;
+            }
+
+
+            .contact-info,
+            .contact-form {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         REACT ROOT
+    ========================== -->
+
+    <div id="root"></div>
+
+
+    <!-- =========================
+         REACT JAVASCRIPT
+    ========================== -->
+
+    <script type="text/babel">
+
+
+        function BouquetShop() {
+
+
+            /* =========================
+               PRODUCT DATA
+            ========================== */
+
+            const products = [
+
+                {
+                    id: 1,
+                    name: "Red Rose Bouquet",
+                    category: "Roses",
+                    price: 499,
+                    image: "https://images.unsplash.com/photo-1490750967868-88aa4486c946"
+                },
+
+                {
+                    id: 2,
+                    name: "Pink Rose Bouquet",
+                    category: "Roses",
+                    price: 549,
+                    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23"
+                },
+
+                {
+                    id: 3,
+                    name: "Sunflower Bouquet",
+                    category: "Sunflowers",
+                    price: 449,
+                    image: "https://images.unsplash.com/photo-1597848212624-e19e7b61e2f3"
+                },
+
+                {
+                    id: 4,
+                    name: "Tulip Bouquet",
+                    category: "Tulips",
+                    price: 599,
+                    image: "https://images.unsplash.com/photo-1520763185298-1b434c919102"
+                },
+
+                {
+                    id: 5,
+                    name: "Mixed Flower Bouquet",
+                    category: "Mixed",
+                    price: 699,
+                    image: "https://images.unsplash.com/photo-1523438885200-e635ba2c371e"
+                },
+
+                {
+                    id: 6,
+                    name: "Wedding Bouquet",
+                    category: "Wedding",
+                    price: 899,
+                    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed"
+                },
+
+                {
+                    id: 7,
+                    name: "White Flower Bouquet",
+                    category: "Mixed",
+                    price: 649,
+                    image: "https://images.unsplash.com/photo-1526047932273-341f2a7631f9"
+                },
+
+                {
+                    id: 8,
+                    name: "Birthday Bouquet",
+                    category: "Mixed",
+                    price: 599,
+                    image: "https://images.unsplash.com/photo-1495231916356-a86217efff12"
+                }
+
+            ];
+
+
+            /* =========================
+               REACT STATES
+            ========================== */
+
+            const [cart, setCart] = React.useState([]);
+
+            const [search, setSearch] = React.useState("");
+
+            const [category, setCategory] = React.useState("All");
+
+            const [showCart, setShowCart] = React.useState(false);
+
+
+            /* =========================
+               ADD TO CART
+            ========================== */
+
+            function addToCart(product) {
+
+                const existing =
+                    cart.find(item =>
+                        item.id === product.id
+                    );
+
+
+                if (existing) {
+
+                    setCart(
+
+                        cart.map(item =>
+
+                            item.id === product.id
+
+                            ? {
+                                ...item,
+                                quantity:
+                                item.quantity + 1
+                              }
+
+                            : item
+
+                        )
+
+                    );
+
+                }
+
+                else {
+
+                    setCart(
+
+                        [
+                            ...cart,
+
+                            {
+                                ...product,
+                                quantity: 1
+                            }
+
+                        ]
+
+                    );
+
+                }
+
+            }
+
+
+            /* =========================
+               INCREASE QUANTITY
+            ========================== */
+
+            function increaseQuantity(id) {
+
+                setCart(
+
+                    cart.map(item =>
+
+                        item.id === id
+
+                        ? {
+                            ...item,
+                            quantity:
+                            item.quantity + 1
+                          }
+
+                        : item
+
+                    )
+
+                );
+
+            }
+
+
+            /* =========================
+               DECREASE QUANTITY
+            ========================== */
+
+            function decreaseQuantity(id) {
+
+                setCart(
+
+                    cart.map(item =>
+
+                        item.id === id
+
+                        ? {
+                            ...item,
+                            quantity:
+                            item.quantity - 1
+                          }
+
+                        : item
+
+                    ).filter(
+                        item => item.quantity > 0
+                    )
+
+                );
+
+            }
+
+
+            /* =========================
+               REMOVE ITEM
+            ========================== */
+
+            function removeItem(id) {
+
+                setCart(
+
+                    cart.filter(
+                        item => item.id !== id
+                    )
+
+                );
+
+            }
+
+
+            /* =========================
+               CART TOTAL
+            ========================== */
+
+            const total = cart.reduce(
+
+                (sum, item) =>
+
+                    sum +
+                    item.price *
+                    item.quantity,
+
+                0
+
+            );
+
+
+            /* =========================
+               CART ITEM COUNT
+            ========================== */
+
+            const cartCount = cart.reduce(
+
+                (sum, item) =>
+
+                    sum + item.quantity,
+
+                0
+
+            );
+
+
+            /* =========================
+               SEARCH + CATEGORY FILTER
+            ========================== */
+
+            const filteredProducts =
+                products.filter(product => {
+
+                    const matchesSearch =
+                        product.name
+                        .toLowerCase()
+                        .includes(
+                            search.toLowerCase()
+                        );
+
+
+                    const matchesCategory =
+
+                        category === "All"
+
+                        ||
+
+                        product.category === category;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesCategory
+                    );
+
+                });
+
+
+            /* =========================
+               SHOP NOW
+            ========================== */
+
+            function shopNow() {
+
+                document
+                    .getElementById("bouquets")
+                    .scrollIntoView();
+
+            }
+
+
+            /* =========================
+               CONTACT FORM
+            ========================== */
+
+            function submitForm(event) {
+
+                event.preventDefault();
+
+                alert(
+                    "Thank you! Your message has been submitted."
+                );
+
+            }
+
+
+            /* =========================
+               CHECKOUT
+            ========================== */
+
+            function checkout() {
+
+                if (cart.length === 0) {
+
+                    alert(
+                        "Your cart is empty."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+
+                    "Thank you for shopping with Bloom Bouquet Shop!\n" +
+
+                    "Your total is ₹" + total
+
+                );
+
+            }
+
+
+            /* =========================
+               REACT UI
+            ========================== */
+
+            return (
+
+                <div>
+
+
+                    {/* =====================
+                        NAVBAR
+                    ====================== */}
+
+                    <nav className="navbar">
+
+                        <div className="logo">
+                            🌸 Bloom Bouquet
+                        </div>
+
+
+                        <div className="nav-links">
+
+                            <a href="#home">
+                                Home
+                            </a>
+
+                            <a href="#about">
+                                About
+                            </a>
+
+                            <a href="#bouquets">
+                                Bouquets
+                            </a>
+
+                            <a href="#services">
+                                Services
+                            </a>
+
+                            <a href="#contact">
+                                Contact
+                            </a>
+
+
+                            <button
+                                className="cart-button"
+                                onClick={() =>
+                                    setShowCart(true)
+                                }
+                            >
+
+                                🛒 Cart ({cartCount})
+
+                            </button>
+
+                        </div>
+
+                    </nav>
+
+
+
+                    {/* =====================
+                        HERO
+                    ====================== */}
+
+                    <section
+                        className="hero"
+                        id="home"
+                    >
+
+                        <div className="hero-content">
+
+                            <h1>
+                                Fresh Flowers,
+                                Beautiful Memories 💐
+                            </h1>
+
+
+                            <p>
+
+                                Welcome to Bloom Bouquet Shop.
+                                We create beautiful and fresh
+                                flower bouquets for birthdays,
+                                weddings, anniversaries and
+                                every special occasion.
+
+                            </p>
+
+
+                            <button
+                                className="shop-btn"
+                                onClick={shopNow}
+                            >
+
+                                Shop Now
+
+                            </button>
+
+                        </div>
+
+
+                        <div className="hero-image">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1490750967868-88aa4486c946"
+                                alt="Flower Bouquet"
+                            />
+
+                        </div>
+
+                    </section>
+
+
+
+                    {/* =====================
+                        ABOUT
+                    ====================== */}
+
+                    <section
+                        className="section about"
+                        id="about"
+                    >
+
+                        <h2 className="section-title">
+                            About Us
+                        </h2>
+
+
+                        <p className="section-text">
+
+                            We bring beautiful flowers and
+                            happiness to your special moments.
+
+                        </p>
+
+
+                        <div className="about-container">
+
+
+                            <div className="about-image">
+
+                                <img
+                                    src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e"
+                                    alt="Flowers"
+                                />
+
+                            </div>
+
+
+                            <div className="about-content">
+
+                                <h3>
+                                    Flowers Made With Love
+                                </h3>
+
+
+                                <p>
+
+                                    Bloom Bouquet Shop provides
+                                    fresh and beautifully designed
+                                    bouquets for all occasions.
+
+                                </p>
+
+
+                                <p>
+
+                                    Whether you want to wish someone
+                                    a happy birthday, celebrate an
+                                    anniversary or decorate a wedding,
+                                    we have the perfect bouquet for you.
+
+                                </p>
+
+
+                                <p>
+
+                                    Our goal is to make every special
+                                    moment more beautiful with flowers.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                    {/* =====================
+                        PRODUCTS
+                    ====================== */}
+
+                    <section
+                        className="section"
+                        id="bouquets"
+                    >
+
+                        <h2 className="section-title">
+                            Our Bouquets
+                        </h2>
+
+
+                        <p className="section-text">
+
+                            Choose your favorite bouquet from
+                            our collection.
+
+                        </p>
+
+
+                        {/* SEARCH */}
+
+                        <div className="controls">
+
+
+                            <input
+
+                                type="text"
+
+                                className="search"
+
+                                placeholder="Search bouquet..."
+
+                                value={search}
+
+                                onChange={
+                                    (event) =>
+                                    setSearch(
+                                        event.target.value
+                                    )
+                                }
+
+                            />
+
+
+                            {/* CATEGORY */}
+
+                            <select
+
+                                className="filter"
+
+                                value={category}
+
+                                onChange={
+                                    (event) =>
+                                    setCategory(
+                                        event.target.value
+                                    )
+                                }
+
+                            >
+
+                                <option value="All">
+                                    All Bouquets
+                                </option>
+
+                                <option value="Roses">
+                                    Roses
+                                </option>
+
+                                <option value="Tulips">
+                                    Tulips
+                                </option>
+
+                                <option value="Sunflowers">
+                                    Sunflowers
+                                </option>
+
+                                <option value="Mixed">
+                                    Mixed
+                                </option>
+
+                                <option value="Wedding">
+                                    Wedding
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        {/* PRODUCT CARDS */}
+
+                        <div className="products">
+
+
+                            {
+
+                                filteredProducts.length === 0
+
+                                ?
+
+                                <p>
+                                    No bouquets found.
+                                </p>
+
+                                :
+
+                                filteredProducts.map(
+                                    product => (
+
+                                        <div
+                                            className="product-card"
+                                            key={product.id}
+                                        >
+
+
+                                            <img
+
+                                                src={product.image}
+
+                                                alt={product.name}
+
+                                            />
+
+
+                                            <div
+                                                className="product-details"
+                                            >
+
+                                                <h3>
+                                                    {product.name}
+                                                </h3>
+
+
+                                                <p>
+                                                    {product.category}
+                                                </p>
+
+
+                                                <div
+                                                    className="price"
+                                                >
+                                                    ₹{product.price}
+                                                </div>
+
+
+                                                <button
+
+                                                    className="add-cart"
+
+                                                    onClick={() =>
+                                                        addToCart(
+                                                            product
+                                                        )
+                                                    }
+
+                                                >
+
+                                                    Add to Cart
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    )
+                                )
+
+                            }
+
+                        </div>
+
+                    </section>
+
+
+
+                    {/* =====================
+                        SERVICES
+                    ====================== */}
+
+                    <section
+                        className="section services"
+                        id="services"
+                    >
+
+                        <h2 className="section-title">
+                            Our Services
+                        </h2>
+
+
+                        <p className="section-text">
+
+                            We provide simple and convenient
+                            flower services.
+
+                        </p>
+
+
+                        <div className="service-container">
+
+
+                            <div className="service-card">
+
+                                <div className="icon">
+                                    🌹
+                                </div>
+
+                                <h3>
+                                    Fresh Flowers
+                                </h3>
+
+                                <p>
+
+                                    We use fresh and beautiful
+                                    flowers for every bouquet.
+
+                                </p>
+
+                            </div>
+
+
+                            <div className="service-card">
+
+                                <div className="icon">
+                                    🚚
+                                </div>
+
+                                <h3>
+                                    Fast Delivery
+                                </h3>
+
+                                <p>
+
+                                    Get your favorite bouquets
+                                    delivered to your doorstep.
+
+                                </p>
+
+                            </div>
+
+
+                            <div className="service-card">
+
+                                <div className="icon">
+                                    🎁
+                                </div>
+
+                                <h3>
+                                    Beautiful Gifts
+                                </h3>
+
+                                <p>
+
+                                    Make your loved ones happy
+                                    with beautiful flower gifts.
+
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+                    </section>
+
+
+
+                    {/* =====================
+                        CONTACT
+                    ====================== */}
+
+                    <section
+                        className="section contact"
+                        id="contact"
+                    >
+
+                        <h2 className="section-title">
+                            Contact Us
+                        </h2>
+
+
+                        <p className="section-text">
+
+                            Have a question? Send us a message.
+
+                        </p>
+
+
+                        <div className="contact-container">
+
+
+                            <div className="contact-info">
+
+                                <h3>
+                                    Get In Touch
+                                </h3>
+
+
+                                <p>
+                                    📍 Hyderabad, Telangana
+                                </p>
+
+
+                                <p>
+                                    📞 +91 98765 43210
+                                </p>
+
+
+                                <p>
+                                    📧 bloom@example.com
+                                </p>
+
+
+                                <p>
+                                    🕒 Monday - Sunday
+                                    <br />
+                                    9:00 AM - 8:00 PM
+                                </p>
+
+                            </div>
+
+
+
+                            <form
+                                className="contact-form"
+                                onSubmit={submitForm}
+                            >
+
+                                <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    required
+                                />
+
+
+                                <input
+                                    type="email"
+                                    placeholder="Your Email"
+                                    required
+                                />
+
+
+                                <input
+                                    type="tel"
+                                    placeholder="Your Mobile Number"
+                                    required
+                                />
+
+
+                                <textarea
+                                    placeholder="Your Message"
+                                    required
+                                >
+                                </textarea>
+
+
+                                <button
+                                    className="submit-btn"
+                                    type="submit"
+                                >
+
+                                    Send Message
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </section>
+
+
+
+                    {/* =====================
+                        FOOTER
+                    ====================== */}
+
+                    <footer>
+
+                        <p>
+                            🌸 Bloom Bouquet Shop
+                        </p>
+
+                        <p>
+                            Fresh Flowers • Beautiful
+                            Moments • Happy Hearts
+                        </p>
+
+                        <p>
+                            © 2026 Bloom Bouquet Shop.
+                            All Rights Reserved.
+                        </p>
+
+                    </footer>
+
+
+
+                    {/* =====================
+                        CART
+                    ====================== */}
+
+                    {
+
+                        showCart &&
+
+                        <div>
+
+                            {/* Overlay */}
+
+                            <div
+                                className="cart-overlay"
+                                onClick={() =>
+                                    setShowCart(false)
+                                }
+                            >
+                            </div>
+
+
+                            {/* Sidebar */}
+
+                            <div className="cart-sidebar">
+
+
+                                <div className="cart-header">
+
+                                    <h2>
+                                        🛒 Your Cart
+                                    </h2>
+
+
+                                    <button
+                                        className="close-cart"
+                                        onClick={() =>
+                                            setShowCart(false)
+                                        }
+                                    >
+                                        ×
+                                    </button>
+
+                                </div>
+
+
+
+                                {
+
+                                    cart.length === 0
+
+                                    ?
+
+                                    <div className="empty-cart">
+
+                                        <h3>
+                                            Your cart is empty
+                                        </h3>
+
+                                        <p>
+                                            Add some beautiful
+                                            bouquets!
+                                        </p>
+
+                                    </div>
+
+                                    :
+
+                                    <div>
+
+
+                                        {
+
+                                            cart.map(item => (
+
+                                                <div
+                                                    className="cart-item"
+                                                    key={item.id}
+                                                >
+
+
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                    />
+
+
+                                                    <div
+                                                        className="cart-item-info"
+                                                    >
+
+                                                        <h4>
+                                                            {item.name}
+                                                        </h4>
+
+
+                                                        <p>
+                                                            ₹{item.price}
+                                                        </p>
+
+
+                                                        <div
+                                                            className="quantity"
+                                                        >
+
+                                                            <button
+                                                                onClick={() =>
+                                                                    decreaseQuantity(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                -
+                                                            </button>
+
+
+                                                            <span>
+                                                                {item.quantity}
+                                                            </span>
+
+
+                                                            <button
+                                                                onClick={() =>
+                                                                    increaseQuantity(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                +
+                                                            </button>
+
+                                                        </div>
+
+
+                                                        <button
+                                                            className="remove"
+                                                            onClick={() =>
+                                                                removeItem(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                        >
+                                                            Remove
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            ))
+
+                                        }
+
+
+
+                                        <div className="cart-total">
+
+                                            <span>
+                                                Total:
+                                            </span>
+
+                                            <span>
+                                                ₹{total}
+                                            </span>
+
+                                        </div>
+
+
+                                        <button
+                                            className="checkout"
+                                            onClick={checkout}
+                                        >
+
+                                            Checkout
+
+                                        </button>
+
+                                    </div>
+
+                                }
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+
+            );
+
+        }
+
+
+
+        /* =========================
+           START REACT APPLICATION
+        ========================== */
+
+        const root =
+
+            ReactDOM.createRoot(
+
+                document.getElementById("root")
+
+            );
+
+
+        root.render(
+            <BouquetShop />
+        );
+
+
+    </script>
+
+</body>
+
+</html>
